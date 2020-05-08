@@ -8,7 +8,7 @@ public class Rocket {
 	int circuitPosition;
 	
 	public Rocket(String name,int propellers) {
-		
+		Name=name;
 	}
 	
 	public void updateData(int time) {
