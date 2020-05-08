@@ -1,6 +1,7 @@
 package CapaDomini;
 
 public class Rocket {
+
 	String Name;
 	Double currentSpeed;
 	int currentAcceleration;
@@ -24,4 +25,7 @@ public class Rocket {
 	public int getPosition() {return circuitPosition;}
 		
 		
+
+	
+
 }
