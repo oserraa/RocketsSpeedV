@@ -7,7 +7,7 @@ import java.util.List;
 public class Rocket {
 
 
-	String Name;
+	String name;
 	double currentSpeed=0;
 	double currentAcceleration=0;
 	double metersTravelled=0;
@@ -20,7 +20,7 @@ public class Rocket {
 	
 	
 	public Rocket(String name,List <Integer>propellers,int fuel) {
-		Name=name;
+		this.name=name;
 		fuelTank=new FuelTank(fuel);
 		for(Integer propeller: propellers) {
 			this.propellers.add(new Propeller(propeller));
@@ -87,15 +87,21 @@ public class Rocket {
 	
 	public String getName() {return name;}
 	public Double getSpeed() {return currentSpeed;}
-	public int getAcceleration() {return currentAcceleration;}
+	public double getAcceleration() {return currentAcceleration;}
 	public Double getMetersTravelled() {return metersTravelled;}
 	
 	public void setPosition(int position) {
 		circuitPosition=position;
 	}
 	public int getPosition() {return circuitPosition;}
-	public int getCurrentFuel() {return fuelTank.getcurrentFuel();}
-	public int getMaxFuel() {return fuelTank.getmaxFuel();}
+	public double getCurrentFuel() {return fuelTank.getcurrentFuel();}
+
+
+	public double getMaxFuel() {
+		return fuelTank.getMaxFuel();
+		
+	}
+	
 	
 
 }

@@ -3,11 +3,11 @@ package CapaDomini;
 public class FuelTank {
 
 
-	public double currentFuel;
-	
+	private double currentFuel;
+	private double maxFuel;
 	public FuelTank(int fuel) {
 		currentFuel=fuel;
-
+		this.maxFuel=fuel;
 	}
 
 	public double getcurrentFuel() {
@@ -19,5 +19,9 @@ public class FuelTank {
 	}
 	public void setmaxFuel(int maxcapacity) {
 		currentFuel=maxcapacity;
+	}
+
+	public double getMaxFuel() {
+		return maxFuel;
 	}
 }
