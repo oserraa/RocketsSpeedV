@@ -21,7 +21,7 @@ public class Circuit {
 	
 	public void rocketActionAll() {
 		for(Rocket rocket: rockets){
-			//rocket.decideAction(meters,currentTime);
+			rocket.askMovement(meters,currentTime);
 		}
 	}
 	public String startCompetition() {
@@ -29,7 +29,7 @@ public class Circuit {
 		Rocket rocket=rockets.get(0);
 		while(!CompetitionEnds()) {
 			theresAwinner();
-			sentence+="\n Current Time: "+this.currentTime+"Acceleration: "+rocket.getAcceleration()+
+			sentence+="\n Current Time: "+this.currentTime+" Acceleration: "+rocket.getAcceleration()+
 					" Speed: "+rocket.getSpeed()+" Distance: "+rocket.getMetersTravelled()+" Circuit: "+this.meters+
 					" Fuel: "+rocket.getCurrentFuel()+" / "+rocket.getMaxFuel();
 			this.currentTime++;
