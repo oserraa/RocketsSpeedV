@@ -31,7 +31,8 @@ public class Rocket {
 	public void askMovement(int meters, int time) {
 		
 		if(currentSpeed==0) {
-			currentAcceleration=(int)Math.round((meters/28-metersTravelled)*2);
+			currentAcceleration=150;//50,127,150
+			//currentAcceleration=(int)Math.round((meters/28-metersTravelled)*2);
 			currentSpeed=currentSpeed+currentAcceleration;
 			metersTravelled();
 			fuelTank.setCurrentFuel(currentSpeed);
@@ -64,7 +65,7 @@ public class Rocket {
 	}
 	
 	public void metersTravelled() {
-		metersTravelled=metersTravelled+currentSpeed+(1/2)*currentAcceleration;
+		metersTravelled=metersTravelled+currentSpeed+(0.5)*currentAcceleration;
 
 	}
 	

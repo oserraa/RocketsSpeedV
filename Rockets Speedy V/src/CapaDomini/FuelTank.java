@@ -6,7 +6,7 @@ public class FuelTank {
 	private int currentFuel;
 	private int maxFuel;
 	public FuelTank(int fuel) {
-		currentFuel=fuel;
+		this.currentFuel=fuel;
 		this.maxFuel=fuel;
 	}
 
@@ -15,7 +15,12 @@ public class FuelTank {
 	}
 	
 	public void setCurrentFuel(double speed) {
-		currentFuel=(int) Math.round(0.02*(speed*speed));
+		if((currentFuel-(int) Math.round(0.02*(speed*speed)))<=0) {
+			currentFuel=0;
+		}
+		else {
+		currentFuel=currentFuel-(int) Math.round(0.02*(speed*speed));
+		}
 	}
 	public void setMaxFuel(int maxcapacity) {
 		currentFuel=maxcapacity;
