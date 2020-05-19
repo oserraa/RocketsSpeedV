@@ -21,22 +21,25 @@ public class Circuit {
 	
 	public void rocketActionAll() {
 		for(Rocket rocket: rockets){
-			rocket.decideAction(meters,currentTime);
+			//rocket.decideAction(meters,currentTime);
 		}
 	}
 	public String startCompetition() {
 		String sentence="Starting competition. Circuit length: "+this.meters+" Max Time: "+this.maxTime;
+		Rocket rocket=rockets.get(0);
 		while(!CompetitionEnds()) {
-			sentence+="\n Current Time: "+this.currentTime+"Acceleration: "+winner.getAcceleration()+
-					" Speed: "+winner.getSpeed()+" Distance: "+winner.getMetersTravelled()+" Circuit: "+this.meters+
-					" Fuel: "+this.winner.getCurrentFuel()+" / "+this.winner.getMaxFuel();
+			theresAwinner();
+			sentence+="\n Current Time: "+this.currentTime+"Acceleration: "+rocket.getAcceleration()+
+					" Speed: "+rocket.getSpeed()+" Distance: "+rocket.getMetersTravelled()+" Circuit: "+this.meters+
+					" Fuel: "+rocket.getCurrentFuel()+" / "+rocket.getMaxFuel();
 			this.currentTime++;
 		}
 		sentence+="\n"+EndSentence(CompetitionEnds());
 		return sentence;
 	}
 	public boolean CompetitionEnds() {
-		if(currentTime==maxTime||this.winner!=null) {return true;}
+		if(currentTime==maxTime||this.winner!=null) {
+			return true;}
 		return false;
 	}
 	public String EndSentence(boolean winner) {

@@ -40,7 +40,6 @@ public class Rocket {
 			return currentAcceleration;
 		}
 		else {
-			currentSpeed=goodSpeed;
 			currentAcceleration=0;
 			metersTravelled();
 			fuelTank.setCurrentFuel(currentSpeed);
