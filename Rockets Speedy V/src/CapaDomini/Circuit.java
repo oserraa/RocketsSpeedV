@@ -28,11 +28,12 @@ public class Circuit {
 		String sentence="Starting competition. Circuit length: "+this.meters+" Max Time: "+this.maxTime;
 		Rocket rocket=rockets.get(0);
 		while(!CompetitionEnds()) {
+			this.currentTime++;
+			rocketActionAll();
 			theresAwinner();
 			sentence+="\n Current Time: "+this.currentTime+" Acceleration: "+rocket.getAcceleration()+
 					" Speed: "+rocket.getSpeed()+" Distance: "+rocket.getMetersTravelled()+" Circuit: "+this.meters+
 					" Fuel: "+rocket.getCurrentFuel()+" / "+rocket.getMaxFuel();
-			this.currentTime++;
 		}
 		sentence+="\n"+EndSentence(CompetitionEnds());
 		return sentence;
@@ -48,7 +49,7 @@ public class Circuit {
 	}
 	public String theresAwinner() {
 		Rocket rocket=rockets.get(0);
-		if(rocket.getMetersTravelled()==this.meters) {
+		if(rocket.getMetersTravelled()>=this.meters) {
 			this.winner=rocket;
 			return rocket.getName();
 			}

@@ -28,23 +28,22 @@ public class Rocket {
 	}
 	
 	
-	public double askMovement(int meters, int time) {
-		goodSpeed=meters/time;
+	public void askMovement(int meters, int time) {
 		
 		if(currentSpeed==0) {
-			currentAcceleration=(int)Math.round((meters-metersTravelled)*2);
-			metersTravelled();
+			currentAcceleration=(int)Math.round((meters/28-metersTravelled)*2);
 			currentSpeed=currentSpeed+currentAcceleration;
+			metersTravelled();
 			fuelTank.setCurrentFuel(currentSpeed);
 			setAcceleration(currentAcceleration);
-			return currentAcceleration;
+			//return currentAcceleration;
 		}
 		else {
 			currentAcceleration=0;
 			metersTravelled();
 			fuelTank.setCurrentFuel(currentSpeed);
 			setAcceleration(currentAcceleration);
-			return currentAcceleration;
+			//return currentAcceleration;
 		}
 		
 		
