@@ -4,6 +4,11 @@ public class FuelTank {
 
 	public int currentFuel;
 	public int maxFuel;
+	
+	public FuelTank(int maxFuel) {
+		this.maxFuel=maxFuel;
+		this.currentFuel=0;
+	}
 
 	public int getcurrentFuel() {
 		return currentFuel;
