@@ -15,13 +15,13 @@ public class Circuit {
 		this.name=name;
 		this.meters=meters;
 		this.maxTime=maxTime;
-		this.currentTime=0;
 		this.rockets=rockets;
+		this.currentTime=0;
 	}
 	
 	public void rocketActionAll() {
 		for(Rocket rocket: rockets){
-			rocket.askMovement(meters,currentTime);
+			//rocket.decideAction(meters,currentTime);
 		}
 	}
 	public String startCompetition() {

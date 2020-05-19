@@ -1,6 +1,5 @@
 package ApplicationLayer;
 import java.util.*;
-
 import CapaDomini.*;
 
 public class Main {
