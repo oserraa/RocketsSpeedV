@@ -2,7 +2,7 @@ package CapaDomini;
 import java.util.*;
 
 
-public class Circuoserit {
+public class Circuit {
 	
 	String name;
 	int meters;
@@ -16,11 +16,12 @@ public class Circuoserit {
 		this.meters=meters;
 		this.maxTime=maxTime;
 		this.rockets=rockets;
+		this.currentTime=0;
 	}
 	
 	public void rocketActionAll() {
 		for(Rocket rocket: rockets){
-			rocket.decideAction(meters,currentTime);
+			//rocket.decideAction(meters,currentTime);
 		}
 	}
 	public String startCompetition() {
@@ -29,6 +30,7 @@ public class Circuoserit {
 			sentence+="\n Current Time: "+this.currentTime+"Acceleration: "+winner.getAcceleration()+
 					" Speed: "+winner.getSpeed()+" Distance: "+winner.getMetersTravelled()+" Circuit: "+this.meters+
 					" Fuel: "+this.winner.getCurrentFuel()+" / "+this.winner.getMaxFuel();
+			this.currentTime++;
 		}
 		sentence+="\n"+EndSentence(CompetitionEnds());
 		return sentence;

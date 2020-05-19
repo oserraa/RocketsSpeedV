@@ -1,8 +1,4 @@
-
-
 package CapaDomini;
-
-
 
 public class Propeller {
 	private int maxAcceleration;
