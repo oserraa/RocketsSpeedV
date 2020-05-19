@@ -14,6 +14,7 @@ public class Circuit {
 		this.name=name;
 		this.meters=meters;
 		this.maxTime=maxTime;
+		this.currentTime=0;
 		this.rockets=rockets;
 	}
 	
@@ -28,6 +29,7 @@ public class Circuit {
 			sentence+="\n Current Time: "+this.currentTime+"Acceleration: "+winner.getAcceleration()+
 					" Speed: "+winner.getSpeed()+" Distance: "+winner.getMetersTravelled()+" Circuit: "+this.meters+
 					" Fuel: "+this.winner.getCurrentFuel()+" / "+this.winner.getMaxFuel();
+			this.currentTime++;
 		}
 		sentence+="\n"+EndSentence(CompetitionEnds());
 		return sentence;
