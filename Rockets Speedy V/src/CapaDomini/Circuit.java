@@ -1,26 +1,55 @@
 package CapaDomini;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class Circuit {
+public class Circuoserit {
 	
-	private String name;
-	private int maxTime;
-	private int meters;
-	private List<Rocket> rockets=new ArrayList<Rocket>();
-	
-	public Circuit(String name,int time,int meters, List rocket) {
+	String name;
+	int meters;
+	int maxTime;
+	int currentTime;
+	List<Rocket> rockets= new ArrayList<Rocket>();
+	Rocket winner;
+
+	public Circuit(String name,int meters, int maxTime,List<Rocket>rockets) {
 		this.name=name;
-		this.maxTime=time;
 		this.meters=meters;
-		this.rockets=rocket;
+		this.maxTime=maxTime;
+		this.rockets=rockets;
 	}
 	
-	private void addRocket(Rocket rocket) {
-		this.rockets.add(rocket);
+	public void rocketActionAll() {
+		for(Rocket rocket: rockets){
+			rocket.decideAction(meters,currentTime);
+		}
 	}
-	
+	public String startCompetition() {
+		String sentence="Starting competition. Circuit length: "+this.meters+" Max Time: "+this.maxTime;
+		while(!CompetitionEnds()) {
+			sentence+="\n Current Time: "+this.currentTime+"Acceleration: "+winner.getAcceleration()+
+					" Speed: "+winner.getSpeed()+" Distance: "+winner.getMetersTravelled()+" Circuit: "+this.meters+
+					" Fuel: "+this.winner.getCurrentFuel()+" / "+this.winner.getMaxFuel();
+		}
+		sentence+="\n"+EndSentence(CompetitionEnds());
+		return sentence;
+	}
+	public boolean CompetitionEnds() {
+		if(currentTime==maxTime||this.winner!=null) {return true;}
+		return false;
+	}
+	public String EndSentence(boolean winner) {
+		if(winner)return "And the winner is: "+theresAwinner()+" with a time of "+this.currentTime;
+		return "There is no winner";
+	}
+	public String theresAwinner() {
+		Rocket rocket=rockets.get(0);
+		if(rocket.getMetersTravelled()==this.meters) {
+			this.winner=rocket;
+			return rocket.getName();
+			}
+		return "";
+		
+	}
 	
 
 }

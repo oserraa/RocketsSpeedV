@@ -1,5 +1,7 @@
 
+
 package CapaDomini;
+
 
 
 public class Propeller {
@@ -17,6 +19,7 @@ public class Propeller {
 	
 	
 	public int getCurrentAcceleration() {
+		
 		return this.currentAcceleration;
 	}
 	

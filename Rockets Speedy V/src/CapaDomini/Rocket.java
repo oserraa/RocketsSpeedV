@@ -1,9 +1,11 @@
 package CapaDomini;
+import java.util.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Rocket {
+
 
 	String Name;
 	double currentSpeed=0;
@@ -65,22 +67,35 @@ public class Rocket {
 	
 	public void metersTravelled() {
 		metersTravelled=metersTravelled+currentSpeed+(1/2)*currentAcceleration;
+
 	}
 	
 	public void updateData(int time) {
 		this.metersTravelled=(0+currentSpeed*time+0.5*currentAcceleration*(time^2));
 		this.currentSpeed=currentSpeed+currentAcceleration*time;
 	}
+	
+	public void accelerar(){
+		
+	}
+	public void frenar(){
+		
+	}
+	public void mantenir(){
+	
+	}
+	
+	public String getName() {return name;}
 	public Double getSpeed() {return currentSpeed;}
+	public int getAcceleration() {return currentAcceleration;}
 	public Double getMetersTravelled() {return metersTravelled;}
-	//public getFuel() {}
+	
 	public void setPosition(int position) {
 		circuitPosition=position;
 	}
 	public int getPosition() {return circuitPosition;}
-		
-		
-
+	public int getCurrentFuel() {return fuelTank.getcurrentFuel();}
+	public int getMaxFuel() {return fuelTank.getmaxFuel();}
 	
 
 }

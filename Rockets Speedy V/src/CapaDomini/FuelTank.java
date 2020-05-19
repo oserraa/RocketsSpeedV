@@ -2,11 +2,12 @@ package CapaDomini;
 
 public class FuelTank {
 
+
 	public double currentFuel;
-	
 	
 	public FuelTank(int fuel) {
 		currentFuel=fuel;
+
 	}
 
 	public double getcurrentFuel() {
