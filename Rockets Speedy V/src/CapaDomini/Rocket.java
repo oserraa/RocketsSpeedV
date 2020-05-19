@@ -1,17 +1,70 @@
 package CapaDomini;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Rocket {
-	
-	//hola nois 2
 
 	String Name;
-	Double currentSpeed;
-	int currentAcceleration;
-	Double metersTravelled;
+	double currentSpeed=0;
+	double currentAcceleration=0;
+	double metersTravelled=0;
 	int circuitPosition;
+	FuelTank fuelTank;
 	
-	public Rocket(String name,int propellers) {
+	double goodSpeed;
+
+	private List<Propeller> propellers=new ArrayList<Propeller>();
+	
+	
+	public Rocket(String name,List <Integer>propellers,int fuel) {
 		Name=name;
+		fuelTank=new FuelTank(fuel);
+		for(Integer propeller: propellers) {
+			this.propellers.add(new Propeller(propeller));
+		}
+	}
+	
+	
+	public double askMovement(int meters, int time) {
+		goodSpeed=meters/time;
+		
+		if(currentSpeed==0) {
+			currentAcceleration=(meters-metersTravelled)*2;
+			metersTravelled();
+			currentSpeed=currentSpeed+currentAcceleration;
+			fuelTank.setcurrentFuel(currentSpeed);
+			setAcceleration(currentAcceleration);
+			return currentAcceleration;
+		}
+		else {
+			currentSpeed=goodSpeed;
+			currentAcceleration=0;
+			metersTravelled();
+			fuelTank.setcurrentFuel(currentSpeed);
+			setAcceleration(currentAcceleration);
+			return currentAcceleration;
+		}
+		
+		
+		
+	}
+	public void setAcceleration(double acceleration) {
+		double accelerationGoal=0;
+		for(Propeller propeller:propellers) {
+			if(accelerationGoal+propeller.getMaxAcceleration()<=acceleration) {
+				accelerationGoal+=propeller.getMaxAcceleration();
+				propeller.setMaxAcceleration();
+			}
+			else {
+				propeller.accelerate((int)(acceleration-accelerationGoal));
+				
+			}
+		}
+	}
+	
+	public void metersTravelled() {
+		metersTravelled=metersTravelled+currentSpeed+(1/2)*currentAcceleration;
 	}
 	
 	public void updateData(int time) {
