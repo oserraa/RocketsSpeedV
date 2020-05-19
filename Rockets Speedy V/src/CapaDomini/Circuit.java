@@ -1,6 +1,7 @@
 package CapaDomini;
 import java.util.*;
 
+
 public class Circuit {
 	
 	String name;
@@ -20,7 +21,7 @@ public class Circuit {
 	
 	public void rocketActionAll() {
 		for(Rocket rocket: rockets){
-			rocket.decideAction(meters,currentTime);
+			rocket.askMovement(meters,currentTime);
 		}
 	}
 	public String startCompetition() {

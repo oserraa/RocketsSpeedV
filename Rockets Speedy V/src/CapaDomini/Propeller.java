@@ -1,4 +1,8 @@
+
+
 package CapaDomini;
+
+
 
 public class Propeller {
 	private int maxAcceleration;
@@ -20,7 +24,7 @@ public class Propeller {
 	}
 	
 	public void accelerate(int number) {
-		//MIRAR COMO ACELERAR
+		this.currentAcceleration=number;
 	}
 	
 	public void brake() {
@@ -28,6 +32,11 @@ public class Propeller {
 	}
 	
 	public void keepAcceleration() {
+		
+	}
+	
+	public void setMaxAcceleration() {
+		currentAcceleration=maxAcceleration;
 	}
 }
 
