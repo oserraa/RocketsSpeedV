@@ -2,17 +2,19 @@ package CapaDomini;
 
 public class FuelTank {
 
-	public int currentFuel;
-	public int maxFuel;
+	public double currentFuel;
+	
+	
+	public FuelTank(int fuel) {
+		currentFuel=fuel;
+	}
 
-	public int getcurrentFuel() {
+	public double getcurrentFuel() {
 		return currentFuel;
 	}
-	public int getmaxFuel() {
-		return maxFuel;
-	}
-	public void setcurrentFuel(int newfuel) {
-		currentFuel=newfuel;
+	
+	public void setcurrentFuel(double speed) {
+		currentFuel=0.02*(speed*speed);
 	}
 	public void setmaxFuel(int maxcapacity) {
 		currentFuel=maxcapacity;
