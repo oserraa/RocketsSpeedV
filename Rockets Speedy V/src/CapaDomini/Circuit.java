@@ -21,7 +21,7 @@ public class Circuit {
 	
 	public void rocketActionAll() {
 		for(Rocket rocket: rockets){
-			//rocket.decideAction(meters,currentTime);
+			rocket.decideAction(meters,currentTime);
 		}
 	}
 	public String startCompetition() {
