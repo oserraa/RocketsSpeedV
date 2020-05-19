@@ -9,7 +9,7 @@ public class Rocket {
 
 	String name;
 	double currentSpeed=0;
-	double currentAcceleration=0;
+	int currentAcceleration=0;
 	double metersTravelled=0;
 	int circuitPosition;
 	FuelTank fuelTank;
@@ -20,7 +20,7 @@ public class Rocket {
 	
 	
 	public Rocket(String name,List <Integer>propellers,int fuel) {
-		Name=name;
+		this.name=name;
 		fuelTank=new FuelTank(fuel);
 		for(Integer propeller: propellers) {
 			this.propellers.add(new Propeller(propeller));
@@ -32,10 +32,10 @@ public class Rocket {
 		goodSpeed=meters/time;
 		
 		if(currentSpeed==0) {
-			currentAcceleration=(meters-metersTravelled)*2;
+			currentAcceleration=(int)Math.round((meters-metersTravelled)*2);
 			metersTravelled();
 			currentSpeed=currentSpeed+currentAcceleration;
-			fuelTank.setcurrentFuel(currentSpeed);
+			fuelTank.setCurrentFuel(currentSpeed);
 			setAcceleration(currentAcceleration);
 			return currentAcceleration;
 		}
@@ -43,7 +43,7 @@ public class Rocket {
 			currentSpeed=goodSpeed;
 			currentAcceleration=0;
 			metersTravelled();
-			fuelTank.setcurrentFuel(currentSpeed);
+			fuelTank.setCurrentFuel(currentSpeed);
 			setAcceleration(currentAcceleration);
 			return currentAcceleration;
 		}
@@ -94,8 +94,8 @@ public class Rocket {
 		circuitPosition=position;
 	}
 	public int getPosition() {return circuitPosition;}
-	public int getCurrentFuel() {return fuelTank.getcurrentFuel();}
-	public int getMaxFuel() {return fuelTank.getmaxFuel();}
+	public int getCurrentFuel() {return fuelTank.getCurrentFuel();}
+	public int getMaxFuel() {return fuelTank.getMaxFuel();}
 	
 
 }
