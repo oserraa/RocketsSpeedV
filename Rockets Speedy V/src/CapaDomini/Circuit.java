@@ -1,7 +1,8 @@
 package CapaDomini;
 import java.util.*;
 
-public class Circuit {
+
+public class Circuoserit {
 	
 	String name;
 	int meters;

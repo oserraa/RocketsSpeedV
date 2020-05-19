@@ -1,43 +1,73 @@
 package CapaDomini;
 import java.util.*;
 
-public class Rocket {
-	
-	//hola nois 2
+import java.util.ArrayList;
+import java.util.List;
 
-	private String name;
-	private Double currentSpeed;
-	private int currentAcceleration;
-	private Double metersTravelled;
-	private int circuitPosition;
-	List<Propeller> propellers= new ArrayList<Propeller>();
+public class Rocket {
+
+
+	String Name;
+	double currentSpeed=0;
+	double currentAcceleration=0;
+	double metersTravelled=0;
+	int circuitPosition;
 	FuelTank fuelTank;
 	
-	public Rocket(String name,List<Integer> propellers, int Fuel) {
-		this.name=name;
-		this.currentSpeed=0.0;
-		this.currentAcceleration=0;
-		this.metersTravelled=0.0;
-		circuitPosition=0;
-		
-		Propeller copyPropeller;
-		for(int acceleration:propellers) {
-			copyPropeller= new Propeller(acceleration);
-			this.propellers.add(copyPropeller);
+	double goodSpeed;
+
+	private List<Propeller> propellers=new ArrayList<Propeller>();
+	
+	
+	public Rocket(String name,List <Integer>propellers,int fuel) {
+		Name=name;
+		fuelTank=new FuelTank(fuel);
+		for(Integer propeller: propellers) {
+			this.propellers.add(new Propeller(propeller));
 		}
-		this.fuelTank= new FuelTank(Fuel);
-		
 	}
 	
 	
-	public void decideAction(int meters,int currentTime) {
-		int circuitfases=meters/currentTime;//metres fer cada fase
-		currentAcceleration=(int) Math.round(circuitfases/0.5);
-		currentAcceleration=(int) Math.round(circuitfases/(0.5*(currentTime^2)));
-		updateData(1);
+	public double askMovement(int meters, int time) {
+		goodSpeed=meters/time;
+		
+		if(currentSpeed==0) {
+			currentAcceleration=(meters-metersTravelled)*2;
+			metersTravelled();
+			currentSpeed=currentSpeed+currentAcceleration;
+			fuelTank.setcurrentFuel(currentSpeed);
+			setAcceleration(currentAcceleration);
+			return currentAcceleration;
+		}
+		else {
+			currentSpeed=goodSpeed;
+			currentAcceleration=0;
+			metersTravelled();
+			fuelTank.setcurrentFuel(currentSpeed);
+			setAcceleration(currentAcceleration);
+			return currentAcceleration;
+		}
 		
 		
 		
+	}
+	public void setAcceleration(double acceleration) {
+		double accelerationGoal=0;
+		for(Propeller propeller:propellers) {
+			if(accelerationGoal+propeller.getMaxAcceleration()<=acceleration) {
+				accelerationGoal+=propeller.getMaxAcceleration();
+				propeller.setMaxAcceleration();
+			}
+			else {
+				propeller.accelerate((int)(acceleration-accelerationGoal));
+				
+			}
+		}
+	}
+	
+	public void metersTravelled() {
+		metersTravelled=metersTravelled+currentSpeed+(1/2)*currentAcceleration;
+
 	}
 	
 	public void updateData(int time) {
