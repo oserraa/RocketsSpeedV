@@ -30,37 +30,32 @@ public class Rocket {
 	
 	public void askMovement(int meters, int time) {
 		
-		if(currentSpeed==0) {
-			currentAcceleration=150;//50,127,150
+			setAcceleration(Strategy.getInstance().getAcceleration(time));
+			currentAcceleration=this.getAcceleration();
 			//currentAcceleration=(int)Math.round((meters/28-metersTravelled)*2);
-			currentSpeed=currentSpeed+currentAcceleration;
+			currentSpeed=controlSpeed();
 			metersTravelled();
 			fuelTank.setCurrentFuel(currentSpeed);
-			setAcceleration(currentAcceleration);
 			//return currentAcceleration;
-		}
-		else {
-			currentAcceleration=0;
-			metersTravelled();
-			fuelTank.setCurrentFuel(currentSpeed);
-			setAcceleration(currentAcceleration);
-			//return currentAcceleration;
-		}
-		
 		
 		
 	}
-	public void setAcceleration(double acceleration) {
-		double accelerationGoal=0;
+	public double controlSpeed() {
+		if(this.fuelTank.getCurrentFuel()==0)return 0;
+		return currentSpeed+currentAcceleration;
+	}
+	public void setAcceleration(int acceleration) {
+		//double accelerationGoal=0;
 		for(Propeller propeller:propellers) {
-			if(accelerationGoal+propeller.getMaxAcceleration()<=acceleration) {
+			propeller.accelerate(acceleration);
+			/*if(accelerationGoal+propeller.getMaxAcceleration()<=acceleration) {
 				accelerationGoal+=propeller.getMaxAcceleration();
 				propeller.setMaxAcceleration();
 			}
 			else {
 				propeller.accelerate((int)(acceleration-accelerationGoal));
 				
-			}
+			}*/
 		}
 	}
 	
@@ -86,7 +81,14 @@ public class Rocket {
 	
 	public String getName() {return name;}
 	public Double getSpeed() {return currentSpeed;}
-	public int getAcceleration() {return currentAcceleration;}
+	public int getcurrentAcceleration() {return currentAcceleration;}
+	public int getAcceleration() {
+		int acceleration=0;
+		for(Propeller propeller:propellers) {
+			acceleration+=propeller.getCurrentAcceleration();
+		}
+		return acceleration;
+	}
 	public Double getMetersTravelled() {return metersTravelled;}
 	
 	public void setPosition(int position) {

@@ -20,15 +20,16 @@ public class Propeller {
 	}
 	
 	public void accelerate(int number) {
-		this.currentAcceleration=number;
+		if(number>maxAcceleration) {
+			this.currentAcceleration=maxAcceleration;
+		}
+		else {
+			this.currentAcceleration=number;
+		}
 	}
 	
 	public void brake() {
 		this.currentAcceleration=0;
-	}
-	
-	public void keepAcceleration() {
-		
 	}
 	
 	public void setMaxAcceleration() {

@@ -35,7 +35,7 @@ public class Circuit {
 					" Speed: "+rocket.getSpeed()+" Distance: "+rocket.getMetersTravelled()+" Circuit: "+this.meters+
 					" Fuel: "+rocket.getCurrentFuel()+" / "+rocket.getMaxFuel();
 		}
-		sentence+="\n"+EndSentence(CompetitionEnds());
+		sentence+="\n"+EndSentence();
 		return sentence;
 	}
 	public boolean CompetitionEnds() {
@@ -43,8 +43,8 @@ public class Circuit {
 			return true;}
 		return false;
 	}
-	public String EndSentence(boolean winner) {
-		if(winner)return "And the winner is: "+theresAwinner()+" with a time of "+this.currentTime;
+	public String EndSentence() {
+		if(this.winner!=null)return "And the winner is: "+theresAwinner()+" with a time of "+this.currentTime;
 		return "There is no winner";
 	}
 	public String theresAwinner() {
