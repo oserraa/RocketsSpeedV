@@ -11,8 +11,6 @@ public class Rocket {
 	private double metersTravelled=0;
 	private int circuitPosition;
 	private FuelTank fuelTank;
-	
-	private double goodSpeed;
 
 	private List<Propeller> propellers=new ArrayList<Propeller>();
 	
@@ -28,7 +26,7 @@ public class Rocket {
 	
 	
 	public void askMovement(int meters, int time) {
-		setAcceleration(Strategy.getInstance().getAcceleration(time));
+		setAcceleration(Strategy.getInstance(propellers).getAcceleration(time));
 		currentAcceleration=this.getAcceleration();		
 		currentSpeed=calculateSpeed();
 		metersTravelled();
@@ -47,7 +45,6 @@ public class Rocket {
 	
 	public void metersTravelled() {
 		metersTravelled=metersTravelled+currentSpeed+(0.5)*currentAcceleration;
-
 	}
 	
 	public void updateData(int time) {
