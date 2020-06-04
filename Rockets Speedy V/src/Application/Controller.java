@@ -1,4 +1,4 @@
-package ApplicationLayer;
+package Application;
 
 public class Controller {
 

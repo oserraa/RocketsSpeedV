@@ -1,11 +1,10 @@
-package CapaDomini;
+package Domain;
 
 public class FuelTank {
-
-
 	private int currentFuel;
 	private int maxFuel;
 	public FuelTank(int fuel) {
+		//validar dades
 		this.currentFuel=fuel;
 		this.maxFuel=fuel;
 	}
@@ -14,7 +13,8 @@ public class FuelTank {
 		return currentFuel;
 	}
 	
-	public void setCurrentFuel(double speed) {
+	public void updateFuel(double speed) {
+		//mes clar
 		if((currentFuel-(int) Math.round(0.02*(speed*speed)))<=0) {
 			currentFuel=0;
 		}

@@ -1,4 +1,4 @@
-package CapaDomini;
+package Domain;
 
 public class Strategy {
 	
@@ -14,7 +14,7 @@ public class Strategy {
 	
 	private Strategy() {
 		numbers[0]=43;
-		for(int i=1;i<28;i++) {
+		for(int i=1;i<numbers.length;i++) {
 			numbers[i]=0;
 		}
 	}
