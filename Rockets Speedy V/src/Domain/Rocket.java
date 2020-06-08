@@ -25,31 +25,37 @@ public class Rocket {
 	}
 	
 	
-	public void askMovement(int meters, int time) {
-		setAcceleration(Strategy.getInstance(propellers).getAcceleration(time));
+	public void askMovement(int time) {
+		//setAcceleration(Strategy.getInstance(this).getAcceleration(time));
 		currentAcceleration=this.getAcceleration();		
-		currentSpeed=calculateSpeed();
-		metersTravelled();
+		//currentSpeed=calculateSpeed();
+		//metersTravelled();
+		updateData(1);
 		fuelTank.updateFuel(currentSpeed);	
 		
 	}
-	public double calculateSpeed() {
+	/*public double calculateSpeed() {
 		if(this.fuelTank.getCurrentFuel()==0)return 0;
 		return currentSpeed+currentAcceleration;
-	}
+	}*/
 	public void setAcceleration(int acceleration) {
 		for(Propeller propeller:propellers) {
 			propeller.accelerate(acceleration);
 		}
 	}
 	
-	public void metersTravelled() {
+	/*public void metersTravelled() {
 		metersTravelled=metersTravelled+currentSpeed+(0.5)*currentAcceleration;
-	}
+	}*/
 	
 	public void updateData(int time) {
 		this.metersTravelled=(0+currentSpeed*time+0.5*currentAcceleration*(time^2));
-		this.currentSpeed=currentSpeed+currentAcceleration*time;
+		if(this.fuelTank.getCurrentFuel()==0) {
+			this.currentSpeed=0;
+		}
+		else {
+			this.currentSpeed=currentSpeed+currentAcceleration*time;
+		}
 	}
 	
 	/*
@@ -79,6 +85,12 @@ public class Rocket {
 	public int getPosition() {return circuitPosition;}
 	public int getCurrentFuel() {return fuelTank.getCurrentFuel();}
 	public int getMaxFuel() {return fuelTank.getMaxFuel();}
+	public List<Propeller> getPropellers(){return propellers;}
 	
+	public void setSpeed(double speed) {this.currentSpeed=speed;}
+	public void setMetersTravelled(double meters) {this.metersTravelled=meters;}
+	public void setCurrentFuel(int fuel) {
+		this.fuelTank.setCurrentFuel(fuel);
+	}
 
 }

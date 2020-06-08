@@ -7,28 +7,29 @@ public class Strategy {
 	
 	private static Strategy instance;
 	private int[]numbers=new int[28];
-	private int meters;
-	private List<Propeller> propellers=new ArrayList<Propeller>();
+	private int meters=1700;
+	private Rocket rocket;
+	private double metersbefore;
+	private double speedbefore;
+	private int fuelbefore;
 	
-	public static Strategy getInstance(List<Propeller> p) {
+	public static Strategy getInstance(Rocket r) {
 		if(instance==null) {
-			instance= new Strategy(p);
+			instance= new Strategy(r);
 		}
 		return instance;
 	}
 	
-	private Strategy(List<Propeller> p) {
-		numbers[0]=43;
-		for(int i=1;i<numbers.length;i++) {
-			numbers[i]=0;
-		}
-		propellers=p;
-		meters=0;
+	private Strategy(Rocket rocket) {
+		this.rocket=rocket;
+		metersbefore=0;
+		speedbefore=0;
+		fuelbefore=0;
 	}
 	
-	public int getAcceleration(int time) {
-		return numbers[time-1];
-	}
+	/*public int getAcceleration(int time) {
+		return calcularAcceleration(acceleration);
+	}*/
 	
 	public void backBestRoute(List<Integer> solution, int k, List<Integer> best) {
 		int i=maxAcceleration();
@@ -36,26 +37,25 @@ public class Strategy {
 			if(acceptable(k,i)) {
 				solution.add(i);
 				if(esSolucio()) {
-					if(millorSolucio()) {
-						
+					if(millorSolucio(solution,best)) {
+						best.clear();
+						for(int newAcceleration:solution) {
+							best.add(newAcceleration);
+						}
 					}
-				}else if() {
+				}else if(!esSolucio()) {
 					backBestRoute(solution,k++,best);
 				}
 				solution.remove(i);
-				
+				desfer();
 			}
-			
-			
-			i++;
-		}
-		
-		
+			i--;
+		}	
 	}
 	
 	private boolean acceptable(int k,int acceleration) {
 		if(k<=numbers.length) {
-			if(i<=) {
+			if(calcularGasolina(k,acceleration)>=0) {
 				return true;
 			}
 		}
@@ -64,24 +64,30 @@ public class Strategy {
 	
 	private int maxAcceleration() {
 		int maxAcceleration=0;
-		for(Propeller propeller: propellers) {
+		for(Propeller propeller: rocket.getPropellers()) {
 			if(maxAcceleration<propeller.getMaxAcceleration()) {
 				maxAcceleration=propeller.getMaxAcceleration();
 			}
 		}
 		return maxAcceleration;			
 	}
-	private int calcularGasolina(int acceleration) {
-		calcularAcceleration(int i)
-		//hacer velocidad actual
-		this.currentSpeed=currentSpeed+currentAcceleration*time;
+	private int calcularGasolina(int k,int acceleration) {
+		//per poder fer desfer
+		metersbefore=rocket.getMetersTravelled();
+		speedbefore=rocket.getSpeed();
+		fuelbefore=rocket.getCurrentFuel();
+		
+		//fer calcularAcc
+		int fuel=rocket.getCurrentFuel()-(int) Math.round(0.02*(rocket.getSpeed()*rocket.getSpeed()));
+		rocket.askMovement(k);
+		return fuel;
 	}
 	
 	private int calcularAcceleration(int i) {
 		int acc=0;
-		for(int j=0;j<propellers.size();j++) {
-			if(i>propellers.get(j).getMaxAcceleration()) {
-				acc+=propellers.get(j).getMaxAcceleration();
+		for(int j=0;j<rocket.getPropellers().size();j++) {
+			if(i>rocket.getPropellers().get(j).getMaxAcceleration()) {
+				acc+=rocket.getPropellers().get(j).getMaxAcceleration();
 			}
 			else {
 				acc+=i;
@@ -89,7 +95,17 @@ public class Strategy {
 		}
 		return acc;		
 	}
-	
+	private boolean esSolucio() {
+		return rocket.getMetersTravelled()>=this.meters;
+	}
+	private boolean millorSolucio(List<Integer> sol,List<Integer> best) {
+		return sol.size()<best.size();
+	}
+	private void desfer() {
+		rocket.setSpeed(speedbefore);
+		rocket.setMetersTravelled(metersbefore);
+		rocket.setCurrentFuel(fuelbefore);
+	}
 	
 	
 

@@ -29,4 +29,6 @@ public class FuelTank {
 	public int getMaxFuel() {
 		return maxFuel;
 	}
+	
+	public void setCurrentFuel(int fuel) {this.currentFuel=fuel;}
 }
