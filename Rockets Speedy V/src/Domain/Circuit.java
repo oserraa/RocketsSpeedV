@@ -29,7 +29,7 @@ public class Circuit {
 		while(!competitionEnds()) {
 			for(Rocket rocket:rockets) {
 				this.currentTime++;
-				rocket.askMovement(currentTime);
+				rocket.askMovement2(currentTime);
 				sentence+="\n Current Time: "+this.currentTime+" Acceleration: "+rocket.getAcceleration()+
 						" Speed: "+rocket.getSpeed()+" Distance: "+rocket.getMetersTravelled()+" Circuit: "+this.meters+
 						" Fuel: "+rocket.getCurrentFuel()+" / "+rocket.getMaxFuel();

@@ -13,7 +13,7 @@ public class Strategy {
 	private int fuelbefore;
 	private List<Integer> bestWay=new ArrayList<Integer>();
 	
-	public static Strategy getInstance(Rocket r) {
+	public synchronized static Strategy getInstance(Rocket r) {
 		if(instance==null) {
 			instance= new Strategy(r);
 		}
@@ -22,6 +22,7 @@ public class Strategy {
 	
 	private Strategy(Rocket rocket) {
 		this.rocket=new Rocket(rocket.getName(),rocket.getMaxPropellers(),rocket.getMaxFuel());
+		//this.rocket=rocket;
 		metersbefore=0;
 		speedbefore=0;
 		fuelbefore=0;
@@ -35,10 +36,18 @@ public class Strategy {
 	
 	public void backBestRoute(List<Integer> solution, int k, List<Integer> best) {
 		int i=maxAcceleration();
+		System.out.println(k);
 		while(i>=0) {
 			if(acceptable(k,i)) {
+				System.out.println(rocket.getAcceleration());
+				System.out.println(rocket.getSpeed());
+				System.out.println(rocket.getCurrentFuel());
 				solution.add(i);
-				rocket.askMovement(i);
+				System.out.println(i);
+				rocket.askMovement1(i);
+				System.out.println(rocket.getAcceleration());
+				System.out.println(rocket.getSpeed());
+				System.out.println(rocket.getCurrentFuel());
 				if(esSolucio()) {
 					if(millorSolucio(solution,best)) {
 						best.clear();
@@ -47,18 +56,23 @@ public class Strategy {
 						}
 					}
 				}else if(!esSolucio()) {
-					backBestRoute(solution,k++,best);
+					System.out.println("Entra else if");
+					backBestRoute(solution,k+1,best);
 				}
-				solution.remove(i);
+				solution.remove(k-1);
 				desfer();
+				
 			}
 			i--;
-		}	
+		}
 	}
 	
 	private boolean acceptable(int k,int acceleration) {
 		if(k<=numbers.length) {
 			if(calcularGasolina(k,acceleration)>=0) {
+				metersbefore=rocket.getMetersTravelled();
+				speedbefore=rocket.getSpeed();
+				fuelbefore=rocket.getCurrentFuel();
 				return true;
 			}
 		}
@@ -75,12 +89,6 @@ public class Strategy {
 		return maxAcceleration;			
 	}
 	private int calcularGasolina(int k,int acceleration) {
-		//per poder fer desfer
-		metersbefore=rocket.getMetersTravelled();
-		speedbefore=rocket.getSpeed();
-		fuelbefore=rocket.getCurrentFuel();
-		
-		//fer calcularAcc
 		double speed=rocket.getSpeed()+calcularAcceleration(acceleration);
 		int fuel=rocket.getCurrentFuel()-(int) Math.round(0.02*(speed*speed));
 		return fuel;

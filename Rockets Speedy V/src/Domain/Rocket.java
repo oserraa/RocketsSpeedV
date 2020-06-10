@@ -14,7 +14,6 @@ public class Rocket {
 
 	private List<Propeller> propellers=new ArrayList<Propeller>();
 	
-	
 	public Rocket(String name,List<Integer>propellers,int fuel) {
 		//validar dades
 		this.name=name;
@@ -24,7 +23,14 @@ public class Rocket {
 		}
 	}
 	
-	public void askMovement(int time) {
+	public void askMovement1(int acce) {
+		setAcceleration(acce);
+		currentAcceleration=this.getAcceleration();		
+		updateData(1);
+		fuelTank.updateFuel(currentSpeed);	
+		
+	}
+	public void askMovement2(int time) {
 		setAcceleration(Strategy.getInstance(this).accelerationOnTime(time));
 		currentAcceleration=this.getAcceleration();		
 		updateData(1);
