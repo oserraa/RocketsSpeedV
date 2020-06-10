@@ -26,7 +26,11 @@ public class Strategy {
 	}
 	
 	public int accelerationOnTime(int time) {
-		return bestWay.get(time-1);
+		try {
+			return bestWay.get(time-1);
+		}catch(Exception e) {
+			return 0;
+		}	
 	}
 	
 	public void backBestRoute(List<Integer> solution, int k, List<Integer> best) {
@@ -39,15 +43,8 @@ public class Strategy {
 				metersbefore=rocket.getMetersTravelled();
 				speedbefore=rocket.getSpeed();
 				fuelbefore=rocket.getCurrentFuel();
-				System.out.println(rocket.getAcceleration());
-				System.out.println(rocket.getSpeed());
-				System.out.println(rocket.getCurrentFuel());
 				solution.add(i);
-				System.out.println(i);
 				rocket.askMovement1(i);
-				System.out.println(rocket.getAcceleration());
-				System.out.println(rocket.getSpeed());
-				System.out.println(rocket.getCurrentFuel());
 				if(esSolucio()) {
 					if(millorSolucio(solution,best)) {
 						best.clear();
@@ -56,8 +53,6 @@ public class Strategy {
 						}
 					}
 				}else if(!esSolucio()) {
-					System.out.println(k);
-					System.out.println("Entra else if");
 					backBestRoute(solution,k+1,best);
 				}
 				solution.remove(k-1);
@@ -110,7 +105,7 @@ public class Strategy {
 		return rocket.getMetersTravelled()>=this.meters;
 	}
 	private boolean millorSolucio(List<Integer> sol,List<Integer> best) {
-		//tmb mirar gasolina per dspres meta
+		if(best.size()==0)return true;
 		return sol.size()<best.size();
 	}
 	
