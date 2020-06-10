@@ -71,13 +71,6 @@ public class Rocket {
 	public int getMaxFuel() {return fuelTank.getMaxFuel();}
 	public List<Propeller> getPropellers(){return propellers;}
 	
-	public List<Integer> getMaxPropellers(){
-		List<Integer> maxPropellers= new ArrayList<Integer>();
-		for(Propeller propeller: propellers) {
-			maxPropellers.add(propeller.getMaxAcceleration());
-		}
-		return maxPropellers;
-	}
 	public void setSpeed(double speed) {this.currentSpeed=speed;}
 	public void setMetersTravelled(double meters) {this.metersTravelled=meters;}
 	public void setCurrentFuel(int fuel) {

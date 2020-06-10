@@ -19,8 +19,7 @@ public class Strategy {
 	}
 	
 	private Strategy(Rocket rocket) {
-		this.rocket=new Rocket(rocket.getName(),rocket.getMaxPropellers(),rocket.getMaxFuel());
-		//this.rocket=rocket;
+		this.rocket=rocket;
 		List<Integer> sol=new ArrayList<Integer>();
 		backBestRoute(sol,1,bestWay);
 	}
