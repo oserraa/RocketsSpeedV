@@ -8,9 +8,7 @@ public class Strategy {
 	private int[]numbers=new int[28];
 	private int meters=1700;
 	private Rocket rocket;
-	private double metersbefore;
-	private double speedbefore;
-	private int fuelbefore;
+	
 	private List<Integer> bestWay=new ArrayList<Integer>();
 	
 	public synchronized static Strategy getInstance(Rocket r) {
@@ -23,9 +21,6 @@ public class Strategy {
 	private Strategy(Rocket rocket) {
 		this.rocket=new Rocket(rocket.getName(),rocket.getMaxPropellers(),rocket.getMaxFuel());
 		//this.rocket=rocket;
-		metersbefore=0;
-		speedbefore=0;
-		fuelbefore=0;
 		List<Integer> sol=new ArrayList<Integer>();
 		backBestRoute(sol,1,bestWay);
 	}
@@ -36,9 +31,14 @@ public class Strategy {
 	
 	public void backBestRoute(List<Integer> solution, int k, List<Integer> best) {
 		int i=maxAcceleration();
-		System.out.println(k);
+		double metersbefore=0;
+		double speedbefore=0;
+		int fuelbefore=0;
 		while(i>=0) {
 			if(acceptable(k,i)) {
+				metersbefore=rocket.getMetersTravelled();
+				speedbefore=rocket.getSpeed();
+				fuelbefore=rocket.getCurrentFuel();
 				System.out.println(rocket.getAcceleration());
 				System.out.println(rocket.getSpeed());
 				System.out.println(rocket.getCurrentFuel());
@@ -56,11 +56,14 @@ public class Strategy {
 						}
 					}
 				}else if(!esSolucio()) {
+					System.out.println(k);
 					System.out.println("Entra else if");
 					backBestRoute(solution,k+1,best);
 				}
 				solution.remove(k-1);
-				desfer();
+				rocket.setSpeed(speedbefore);
+				rocket.setMetersTravelled(metersbefore);
+				rocket.setCurrentFuel(fuelbefore);
 				
 			}
 			i--;
@@ -70,9 +73,6 @@ public class Strategy {
 	private boolean acceptable(int k,int acceleration) {
 		if(k<=numbers.length) {
 			if(calcularGasolina(k,acceleration)>=0) {
-				metersbefore=rocket.getMetersTravelled();
-				speedbefore=rocket.getSpeed();
-				fuelbefore=rocket.getCurrentFuel();
 				return true;
 			}
 		}
@@ -113,12 +113,6 @@ public class Strategy {
 		//tmb mirar gasolina per dspres meta
 		return sol.size()<best.size();
 	}
-	private void desfer() {
-		rocket.setSpeed(speedbefore);
-		rocket.setMetersTravelled(metersbefore);
-		rocket.setCurrentFuel(fuelbefore);
-	}
-	
 	
 
 }
