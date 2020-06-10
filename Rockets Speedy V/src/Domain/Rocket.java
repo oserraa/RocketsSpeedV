@@ -15,7 +15,7 @@ public class Rocket {
 	private List<Propeller> propellers=new ArrayList<Propeller>();
 	
 	
-	public Rocket(String name,List <Integer>propellers,int fuel) {
+	public Rocket(String name,List<Integer>propellers,int fuel) {
 		//validar dades
 		this.name=name;
 		fuelTank=new FuelTank(fuel);
@@ -24,30 +24,25 @@ public class Rocket {
 		}
 	}
 	
-	
 	public void askMovement(int time) {
-		//setAcceleration(Strategy.getInstance(this).getAcceleration(time));
+		setAcceleration(Strategy.getInstance(this).accelerationOnTime(time));
 		currentAcceleration=this.getAcceleration();		
-		//currentSpeed=calculateSpeed();
-		//metersTravelled();
 		updateData(1);
 		fuelTank.updateFuel(currentSpeed);	
 		
 	}
-	/*public double calculateSpeed() {
-		if(this.fuelTank.getCurrentFuel()==0)return 0;
-		return currentSpeed+currentAcceleration;
-	}*/
 	public void setAcceleration(int acceleration) {
 		for(Propeller propeller:propellers) {
 			propeller.accelerate(acceleration);
 		}
 	}
-	
-	/*public void metersTravelled() {
-		metersTravelled=metersTravelled+currentSpeed+(0.5)*currentAcceleration;
-	}*/
-	
+	public int getAcceleration() {
+		int acceleration=0;
+		for(Propeller propeller:propellers) {
+			acceleration+=propeller.getCurrentAcceleration();
+		}
+		return acceleration;
+	}
 	public void updateData(int time) {
 		this.metersTravelled=(0+currentSpeed*time+0.5*currentAcceleration*(time^2));
 		if(this.fuelTank.getCurrentFuel()==0) {
@@ -58,23 +53,6 @@ public class Rocket {
 		}
 	}
 	
-	/*
-	public void accelerar(){
-		
-	}
-	public void frenar(){
-		
-	}
-	public void mantenir(){
-	
-	}*/
-	public int getAcceleration() {
-		int acceleration=0;
-		for(Propeller propeller:propellers) {
-			acceleration+=propeller.getCurrentAcceleration();
-		}
-		return acceleration;
-	}
 	public String getName() {return name;}
 	public Double getSpeed() {return currentSpeed;}
 	public int getCurrentAcceleration() {return currentAcceleration;}
@@ -87,6 +65,13 @@ public class Rocket {
 	public int getMaxFuel() {return fuelTank.getMaxFuel();}
 	public List<Propeller> getPropellers(){return propellers;}
 	
+	public List<Integer> getMaxPropellers(){
+		List<Integer> maxPropellers= new ArrayList<Integer>();
+		for(Propeller propeller: propellers) {
+			maxPropellers.add(propeller.getMaxAcceleration());
+		}
+		return maxPropellers;
+	}
 	public void setSpeed(double speed) {this.currentSpeed=speed;}
 	public void setMetersTravelled(double meters) {this.metersTravelled=meters;}
 	public void setCurrentFuel(int fuel) {

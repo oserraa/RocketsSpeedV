@@ -1,5 +1,4 @@
 package Domain;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +11,7 @@ public class Strategy {
 	private double metersbefore;
 	private double speedbefore;
 	private int fuelbefore;
+	private List<Integer> bestWay=new ArrayList<Integer>();
 	
 	public static Strategy getInstance(Rocket r) {
 		if(instance==null) {
@@ -21,21 +21,24 @@ public class Strategy {
 	}
 	
 	private Strategy(Rocket rocket) {
-		this.rocket=rocket;
+		this.rocket=new Rocket(rocket.getName(),rocket.getMaxPropellers(),rocket.getMaxFuel());
 		metersbefore=0;
 		speedbefore=0;
 		fuelbefore=0;
+		List<Integer> sol=new ArrayList<Integer>();
+		backBestRoute(sol,1,bestWay);
 	}
 	
-	/*public int getAcceleration(int time) {
-		return calcularAcceleration(acceleration);
-	}*/
+	public int accelerationOnTime(int time) {
+		return bestWay.get(time-1);
+	}
 	
 	public void backBestRoute(List<Integer> solution, int k, List<Integer> best) {
 		int i=maxAcceleration();
 		while(i>=0) {
 			if(acceptable(k,i)) {
 				solution.add(i);
+				rocket.askMovement(i);
 				if(esSolucio()) {
 					if(millorSolucio(solution,best)) {
 						best.clear();
@@ -78,11 +81,10 @@ public class Strategy {
 		fuelbefore=rocket.getCurrentFuel();
 		
 		//fer calcularAcc
-		int fuel=rocket.getCurrentFuel()-(int) Math.round(0.02*(rocket.getSpeed()*rocket.getSpeed()));
-		rocket.askMovement(k);
+		double speed=rocket.getSpeed()+calcularAcceleration(acceleration);
+		int fuel=rocket.getCurrentFuel()-(int) Math.round(0.02*(speed*speed));
 		return fuel;
 	}
-	
 	private int calcularAcceleration(int i) {
 		int acc=0;
 		for(int j=0;j<rocket.getPropellers().size();j++) {
@@ -95,10 +97,12 @@ public class Strategy {
 		}
 		return acc;		
 	}
+	
 	private boolean esSolucio() {
 		return rocket.getMetersTravelled()>=this.meters;
 	}
 	private boolean millorSolucio(List<Integer> sol,List<Integer> best) {
+		//tmb mirar gasolina per dspres meta
 		return sol.size()<best.size();
 	}
 	private void desfer() {
