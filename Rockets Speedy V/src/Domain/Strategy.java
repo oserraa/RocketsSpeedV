@@ -103,6 +103,7 @@ public class Strategy {
 	private boolean esSolucio() {
 		return rocket.getMetersTravelled()>=this.meters;
 	}
+	
 	private boolean millorSolucio(List<Integer> sol,List<Integer> best) {
 		if(best.size()==0)return true;
 		return sol.size()<best.size();

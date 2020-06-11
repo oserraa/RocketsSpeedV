@@ -49,6 +49,7 @@ public class Rocket {
 		}
 		return acceleration;
 	}
+	
 	public void updateData(int time) {
 		this.metersTravelled+=(0+currentSpeed*time+0.5*currentAcceleration*(time^2));
 		if(this.fuelTank.getCurrentFuel()==0) {
