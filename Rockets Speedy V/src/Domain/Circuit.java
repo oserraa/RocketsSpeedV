@@ -55,6 +55,12 @@ public class Circuit {
 		}
 		return "";
 	}
+	public void addRocket(Rocket rocket) {
+		rockets.add(rocket);
+	}
+	public String getName() {
+		return name;
+	}
 	
 
 }

@@ -58,7 +58,6 @@ public class Strategy {
 				rocket.setSpeed(speedbefore);
 				rocket.setMetersTravelled(metersbefore);
 				rocket.setCurrentFuel(fuelbefore);
-				
 			}
 			i--;
 		}
