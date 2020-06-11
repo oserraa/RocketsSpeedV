@@ -15,12 +15,12 @@ public class CircuitDTO {
 	private Rocket winner;
 	
 	public CircuitDTO(Circuit circuit) {
-		//validar dades
-		this.name=circuit.getName();
-		this.meters=circuit.getMeters();
-		this.maxTime=circuit.getTime();
-		this.rockets=circuit.getRockets();
-		this.currentTime=0;
+		// validar dades
+		this.name = circuit.getName();
+		this.meters = circuit.getMeters();
+		this.maxTime = circuit.getTime();
+		this.rockets = circuit.getRockets();
+		this.currentTime = 0;
 	}
 	
 	public String getName() {

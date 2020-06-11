@@ -3,27 +3,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Strategy {
-	
-	//private static Strategy instance;
+
 	private int time;
 	private int meters;
 	private Rocket rocket;
-	
 	private List<Integer> bestWay=new ArrayList<Integer>();
 	
-	/*public synchronized static Strategy getInstance(Rocket r) {
-		if(instance==null) {
-			instance= new Strategy(r);
-		}
-		return instance;
-	}*/
-	
 	public Strategy(Rocket rocket) {
-		this.rocket=rocket;
-		meters=rocket.getMeters();
-		time=rocket.getTime();
-		List<Integer> sol=new ArrayList<Integer>();
-		backBestRoute(sol,1);
+		this.rocket = rocket;
+		meters = rocket.getMeters();
+		time = rocket.getTime();
+		List<Integer> sol = new ArrayList<Integer>();
+		backBestRoute(sol, 1);
 	}
 	
 	public int accelerationOnTime(int time) {
@@ -46,16 +37,16 @@ public class Strategy {
 				speedbefore=rocket.getSpeed();
 				fuelbefore=rocket.getCurrentFuel();
 				solution.add(i);
-				rocket.askMovement1(i);
-				if(esSolucio()) {
-					if(millorSolucio(solution)) {
+				rocket.updateBackMovement(i);
+				if(isSolution()) {
+					if(bestSolution(solution)) {
 						bestWay.clear();
 						for(int newAcceleration:solution) {
 							bestWay.add(newAcceleration);
 						}
 					}
 					trobat=true;
-				}else if(!esSolucio()) {
+				}else if(!isSolution()) {
 					trobat=backBestRoute(solution,k+1);
 				}
 				solution.remove(k-1);
@@ -117,11 +108,11 @@ public class Strategy {
 		return maxAcceleration;			
 	}
 	private int calculateFuel(int k,int acceleration) {
-		double speed=rocket.getSpeed()+calcularAcceleration(acceleration);
+		double speed=rocket.getSpeed()+calculateAcceleration(acceleration);
 		int fuel=rocket.getCurrentFuel()-(int) Math.round(0.02*(speed*speed));
 		return fuel;
 	}
-	private int calcularAcceleration(int i) {
+	private int calculateAcceleration(int i) {
 		int acc=0;
 		for(int j=0;j<rocket.getPropellers().size();j++) {
 			if(i>rocket.getPropellers().get(j).getMaxAcceleration()) {
@@ -134,10 +125,10 @@ public class Strategy {
 		return acc;		
 	}
 	
-	private boolean esSolucio() {
+	private boolean isSolution() {
 		return rocket.getMetersTravelled()>=this.meters;
 	}
-	private boolean millorSolucio(List<Integer> sol) {
+	private boolean bestSolution(List<Integer> sol) {
 		return (bestWay.size()==0||sol.size()<bestWay.size());
 	}
 	

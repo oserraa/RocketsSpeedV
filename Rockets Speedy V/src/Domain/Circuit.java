@@ -25,11 +25,12 @@ public class Circuit {
 					" Fuel: "+who.getCurrentFuel()+" / "+who.getMaxFuel();
 		return sentence;
 	}
+
 	public void competitionProgress() {
-		while(!competitionEnds()) {
+		while (!competitionEnds()) {
 			this.currentTime++;
-			for(Rocket rocket:rockets) {
-				rocket.askMovement2(currentTime);
+			for (Rocket rocket : rockets) {
+				rocket.askMovement(currentTime);
 				System.out.println(rocketsInformation(rocket));
 			}
 			System.out.println("\n");

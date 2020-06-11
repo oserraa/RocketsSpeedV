@@ -19,12 +19,10 @@ public class Propeller {
 	}
 	
 	public void accelerate(int number) {
-		//validar inferior a 0
-		if(number>maxAcceleration) {
-			this.currentAcceleration=maxAcceleration;
-		}
-		else {
-			this.currentAcceleration=number;
+		if (number > maxAcceleration) {
+			this.currentAcceleration = maxAcceleration;
+		} else {
+			this.currentAcceleration = number;
 		}
 	}
 	

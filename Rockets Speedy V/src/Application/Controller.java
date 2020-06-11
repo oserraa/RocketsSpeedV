@@ -20,7 +20,7 @@ public class Controller {
 	}
 	
 	public void competitionInProgress() {
-		//Thread.sleep(1000);
+		// Thread.sleep(1000);
 		circuit.competitionProgress();
 	}
 	

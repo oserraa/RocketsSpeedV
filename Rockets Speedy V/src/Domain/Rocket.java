@@ -30,15 +30,14 @@ public class Rocket {
 		strategy=new Strategy(this);
 	}
 	
-	public void askMovement1(int acce) {
+	public void updateBackMovement(int acce) {
 		setAcceleration(acce);
-		currentAcceleration=this.getAcceleration();		
+		currentAcceleration = this.getAcceleration();
 		updateData(1);
 		fuelTank.updateFuel(currentSpeed);
-			
-		
+
 	}
-	public void askMovement2(int time) {
+	public void askMovement(int time) {
 		//mirar fueltank a 0, velocidad
 		setAcceleration(strategy.accelerationOnTime(time));
 		currentAcceleration=this.getAcceleration();		

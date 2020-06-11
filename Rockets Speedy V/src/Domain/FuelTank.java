@@ -3,31 +3,34 @@ package Domain;
 public class FuelTank {
 	private int currentFuel;
 	private int maxFuel;
+
 	public FuelTank(int fuel) {
-		//validar dades
-		this.currentFuel=fuel;
-		this.maxFuel=fuel;
+		// validar dades
+		this.currentFuel = fuel;
+		this.maxFuel = fuel;
 	}
 
 	public int getCurrentFuel() {
 		return currentFuel;
 	}
-	
+
 	public void updateFuel(double speed) {
-		if((currentFuel-((int) (0.02*(speed*speed))))<=0) {
-			currentFuel=0;
-		}
-		else {
-		currentFuel=currentFuel-((int) (0.02*(speed*speed)));
+		if ((currentFuel - ((int) (0.02 * (speed * speed)))) <= 0) {
+			currentFuel = 0;
+		} else {
+			currentFuel = currentFuel - ((int) (0.02 * (speed * speed)));
 		}
 	}
+
 	public void setMaxFuel(int maxcapacity) {
-		currentFuel=maxcapacity;
+		currentFuel = maxcapacity;
 	}
 
 	public int getMaxFuel() {
 		return maxFuel;
 	}
-	
-	public void setCurrentFuel(int fuel) {this.currentFuel=fuel;}
+
+	public void setCurrentFuel(int fuel) {
+		this.currentFuel = fuel;
+	}
 }
