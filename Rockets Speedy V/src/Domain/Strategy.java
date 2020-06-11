@@ -34,8 +34,8 @@ public class Strategy {
 	
 	public void backBestRoute(List<Integer> solution, int k, List<Integer> best) {
 		int i=maxAcceleration();
-		double metersbefore=0;
 		double speedbefore=0;
+		double metersbefore=0;
 		int fuelbefore=0;
 		while(i>=0) {
 			if(acceptable(k,i)) {
@@ -57,6 +57,7 @@ public class Strategy {
 				solution.remove(k-1);
 				remove(speedbefore, metersbefore, fuelbefore);
 				
+
 			}
 			i--;
 		}
