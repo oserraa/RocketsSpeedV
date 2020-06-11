@@ -18,28 +18,27 @@ public class Circuit {
 		this.currentTime=0;
 	}
 	
-	public String rocketsInformation() {
+	public String rocketsInformation(Rocket who) {
 		String sentence="";
-		for(Rocket rocket:rockets) {
-			sentence+="\n Name"+rocket.getName()+" Current Time: "+this.currentTime+" Acceleration: "+rocket.getAcceleration()+
-					" Speed: "+rocket.getSpeed()+" Distance: "+rocket.getMetersTravelled()+" Circuit: "+this.meters+
-					" Fuel: "+rocket.getCurrentFuel()+" / "+rocket.getMaxFuel();
-		}
+			sentence+=" Name "+who.getName()+" Current Time: "+this.currentTime+" Acceleration: "+who.getAcceleration()+
+					" Speed: "+who.getSpeed()+" Distance: "+who.getMetersTravelled()+" Circuit: "+this.meters+
+					" Fuel: "+who.getCurrentFuel()+" / "+who.getMaxFuel();
 		return sentence;
 	}
 	public void competitionProgress() {
 		while(!competitionEnds()) {
+			this.currentTime++;
 			for(Rocket rocket:rockets) {
-				this.currentTime++;
 				rocket.askMovement2(currentTime);
-				System.out.println(rocketsInformation());
+				System.out.println(rocketsInformation(rocket));
 			}
+			System.out.println("\n");
 			theresAWinner();
 		}
 		//sentence+="\n"+endSentence();
 	}
 	public boolean competitionEnds() {
-		return (currentTime>=maxTime||this.winner!=null);
+		return (currentTime>=maxTime);//||this.winner!=null
 	}
 	public String endSentence() {
 		if(this.winner!=null)return "And the winner is: "+theresAWinner()+" with a time of "+this.currentTime;

@@ -71,6 +71,8 @@ public class Rocket {
 	public Double getSpeed() {return currentSpeed;}
 	public int getCurrentAcceleration() {return currentAcceleration;}
 	public Double getMetersTravelled() {return metersTravelled;}
+	public int getMeters() {return meters;}
+	public int getTime() {return time;}
 	/*public void setPosition(int position) {
 		circuitPosition=position;
 	}*/

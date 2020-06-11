@@ -20,8 +20,8 @@ public class Strategy {
 	
 	public Strategy(Rocket rocket) {
 		this.rocket=rocket;
-		meters=rocket.meters;
-		time=rocket.time;
+		meters=rocket.getMeters();
+		time=rocket.getTime();
 		List<Integer> sol=new ArrayList<Integer>();
 		backBestRoute(sol,1);
 		System.out.println("He fet stratgey");
@@ -38,7 +38,7 @@ public class Strategy {
 	
 	public void backBestRoute(List<Integer> solution, int k) {//List<Integer> best
 		//int i=maxAcceleration();
-		int i=15;
+		int i=10;
 		double speedbefore=0;
 		double metersbefore=0;
 		int fuelbefore=0;
@@ -49,12 +49,11 @@ public class Strategy {
 				fuelbefore=rocket.getCurrentFuel();
 				solution.add(i);
 				rocket.askMovement1(i);
-				
 				if(esSolucio()) {
-					System.out.println(rocket.getMetersTravelled());
 					if(millorSolucio(solution)) {
 						bestWay.clear();
 						for(int newAcceleration:solution) {
+							//System.out.println(newAcceleration);
 							bestWay.add(newAcceleration);
 						}
 					}
@@ -141,7 +140,7 @@ public class Strategy {
 	}
 	private boolean millorSolucio(List<Integer> sol) {
 		if(bestWay.size()==0)return true;
-		return sol.size()<bestWay.size();
+		return sol.size()<=bestWay.size();
 	}
 	
 
