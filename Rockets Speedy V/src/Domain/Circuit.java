@@ -39,7 +39,7 @@ public class Circuit {
 		//sentence+="\n"+endSentence();
 	}
 	public boolean competitionEnds() {
-		return (currentTime==maxTime||this.winner!=null);
+		return (currentTime>=maxTime||this.winner!=null);
 	}
 	public String endSentence() {
 		if(this.winner!=null)return "And the winner is: "+theresAWinner()+" with a time of "+this.currentTime;

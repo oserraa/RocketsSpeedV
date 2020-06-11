@@ -5,8 +5,8 @@ import java.util.List;
 public class Strategy {
 	
 	//private static Strategy instance;
-	private int numbers=10;
-	private int meters=200;
+	private int time;
+	private int meters;
 	private Rocket rocket;
 	
 	private List<Integer> bestWay=new ArrayList<Integer>();
@@ -20,8 +20,12 @@ public class Strategy {
 	
 	public Strategy(Rocket rocket) {
 		this.rocket=rocket;
+		meters=rocket.meters;
+		time=rocket.time;
 		List<Integer> sol=new ArrayList<Integer>();
 		backBestRoute(sol,1);
+		System.out.println("He fet stratgey");
+		
 	}
 	
 	public int accelerationOnTime(int time) {
@@ -45,10 +49,11 @@ public class Strategy {
 				fuelbefore=rocket.getCurrentFuel();
 				solution.add(i);
 				rocket.askMovement1(i);
+				
 				if(esSolucio()) {
+					System.out.println(rocket.getMetersTravelled());
 					if(millorSolucio(solution)) {
 						bestWay.clear();
-						System.out.println("He trobat una");
 						for(int newAcceleration:solution) {
 							bestWay.add(newAcceleration);
 						}
@@ -96,7 +101,7 @@ public class Strategy {
 	}*/
 	
 	private boolean acceptable(int k,int acceleration) {
-		if(k<=numbers) {
+		if(k<=time) {
 			if(calcularGasolina(k,acceleration)>=0) {
 				return true;
 			}

@@ -11,16 +11,23 @@ public class Rocket {
 	private double metersTravelled=0;
 	private int circuitPosition;
 	private FuelTank fuelTank;
+	private Strategy strategy;
+	
+	int meters;
+	int time;
 
 	private List<Propeller> propellers=new ArrayList<Propeller>();
 	
-	public Rocket(String name,List<Integer>propellers,int fuel) {
+	public Rocket(String name,List<Integer>propellers,int fuel,int m,int t) {
 		//validar dades
 		this.name=name;
 		fuelTank=new FuelTank(fuel);
 		for(Integer propeller: propellers) {
 			this.propellers.add(new Propeller(propeller));
 		}
+		meters=m;
+		time=t;
+		strategy=new Strategy(this);
 	}
 	
 	public void askMovement1(int acce) {
@@ -32,7 +39,7 @@ public class Rocket {
 	}
 	public void askMovement2(int time) {
 		//setAcceleration(Strategy.getInstance(this).accelerationOnTime(time));
-		setAcceleration(new Strategy(this).accelerationOnTime(time));
+		setAcceleration(strategy.accelerationOnTime(time));
 		currentAcceleration=this.getAcceleration();		
 		updateData(1);
 		fuelTank.updateFuel(currentSpeed);	
