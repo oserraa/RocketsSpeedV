@@ -19,7 +19,7 @@ public class RocketFactory {
 		rockets.add(rocket);
 		propellers.clear();
 		
-		propellers.add(30);
+		/*propellers.add(30);
 		propellers.add(18);
 		propellers.add(24);
 		propellers.add(38);
