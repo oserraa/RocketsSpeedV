@@ -11,7 +11,8 @@ public class Controller {
 	
 	public String play() {
 		Random num = new Random();
-		int numCircuit = num.nextInt(4) + 1;
+		int numCircuit = num.nextInt(4);
+		System.out.println(numCircuit);
 		this.circuit = CircuitFactory.getCircuit(numCircuit);
 		String start = "Randomly chosen circuit: " + this.circuit.getName() + "\n"
 				+ "Starting competition. Circuit length: " + this.circuit.getMeters() + " Max Time: "
@@ -19,19 +20,19 @@ public class Controller {
 		return start;
 	}
 	
-	/*public String competitionInProgress() {
+	public void competitionInProgress() {
 		//Thread.sleep(1000);
-		return circuit.rocketsInformation();
-	}*/
+		circuit.competitionProgress();
+	}
 	
-	public String competitionInProgress() {
+	/*public String competitionInProgress() {
 		String sentence="";
 		while(!circuit.competitionEnds()) {
 			circuit.competitionProgress();
 			sentence=circuit.rocketsInformation();
 		}
 		return sentence;
-	}
+	}*/
 	
 	
 	

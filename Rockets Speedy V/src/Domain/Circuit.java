@@ -1,7 +1,6 @@
 package Domain;
 import java.util.*;
 
-
 public class Circuit {
 	private String name;
 	private int meters;
@@ -33,6 +32,7 @@ public class Circuit {
 			for(Rocket rocket:rockets) {
 				this.currentTime++;
 				rocket.askMovement2(currentTime);
+				System.out.println(rocketsInformation());
 			}
 			theresAWinner();
 		}
@@ -65,6 +65,9 @@ public class Circuit {
 	}
 	public int getTime() {
 		return maxTime;
+	}
+	public List<Rocket> getRockets() {
+		return rockets;
 	}
 	
 

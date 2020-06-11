@@ -4,24 +4,24 @@ import java.util.List;
 
 public class Strategy {
 	
-	private static Strategy instance;
-	private int[]numbers=new int[28];
-	private int meters=1700;
+	//private static Strategy instance;
+	private int numbers=10;
+	private int meters=200;
 	private Rocket rocket;
 	
 	private List<Integer> bestWay=new ArrayList<Integer>();
 	
-	public synchronized static Strategy getInstance(Rocket r) {
+	/*public synchronized static Strategy getInstance(Rocket r) {
 		if(instance==null) {
 			instance= new Strategy(r);
 		}
 		return instance;
-	}
+	}*/
 	
-	private Strategy(Rocket rocket) {
+	public Strategy(Rocket rocket) {
 		this.rocket=rocket;
 		List<Integer> sol=new ArrayList<Integer>();
-		backBestRoute(sol,1,bestWay);
+		backBestRoute(sol,1);
 	}
 	
 	public int accelerationOnTime(int time) {
@@ -32,7 +32,39 @@ public class Strategy {
 		}	
 	}
 	
-	public void backBestRoute(List<Integer> solution, int k, List<Integer> best) {
+	public void backBestRoute(List<Integer> solution, int k) {//List<Integer> best
+		//int i=maxAcceleration();
+		int i=15;
+		double speedbefore=0;
+		double metersbefore=0;
+		int fuelbefore=0;
+		while(i>=0) {
+			if(acceptable(k,i)) {
+				metersbefore=rocket.getMetersTravelled();
+				speedbefore=rocket.getSpeed();
+				fuelbefore=rocket.getCurrentFuel();
+				solution.add(i);
+				rocket.askMovement1(i);
+				if(esSolucio()) {
+					if(millorSolucio(solution)) {
+						bestWay.clear();
+						System.out.println("He trobat una");
+						for(int newAcceleration:solution) {
+							bestWay.add(newAcceleration);
+						}
+					}
+				}else if(!esSolucio()) {
+					backBestRoute(solution,k+1);
+				}
+				solution.remove(k-1);
+				rocket.setSpeed(speedbefore);
+				rocket.setMetersTravelled(metersbefore);
+				rocket.setCurrentFuel(fuelbefore);
+			}
+			i--;
+		}
+	}
+	/*public void backBestRoute(List<Integer> solution, int k) {//List<Integer> best
 		int i=maxAcceleration();
 		double speedbefore=0;
 		double metersbefore=0;
@@ -45,14 +77,14 @@ public class Strategy {
 				solution.add(i);
 				rocket.askMovement1(i);
 				if(esSolucio()) {
-					if(millorSolucio(solution,best)) {
-						best.clear();
+					if(millorSolucio(solution,bestWay)) {
+						bestWay.clear();
 						for(int newAcceleration:solution) {
-							best.add(newAcceleration);
+							bestWay.add(newAcceleration);
 						}
 					}
 				}else if(!esSolucio()) {
-					backBestRoute(solution,k+1,best);
+					backBestRoute(solution,k+1);
 				}
 				solution.remove(k-1);
 				rocket.setSpeed(speedbefore);
@@ -61,10 +93,10 @@ public class Strategy {
 			}
 			i--;
 		}
-	}
+	}*/
 	
 	private boolean acceptable(int k,int acceleration) {
-		if(k<=numbers.length) {
+		if(k<=numbers) {
 			if(calcularGasolina(k,acceleration)>=0) {
 				return true;
 			}
@@ -102,9 +134,9 @@ public class Strategy {
 	private boolean esSolucio() {
 		return rocket.getMetersTravelled()>=this.meters;
 	}
-	private boolean millorSolucio(List<Integer> sol,List<Integer> best) {
-		if(best.size()==0)return true;
-		return sol.size()<best.size();
+	private boolean millorSolucio(List<Integer> sol) {
+		if(bestWay.size()==0)return true;
+		return sol.size()<bestWay.size();
 	}
 	
 

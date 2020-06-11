@@ -31,7 +31,8 @@ public class Rocket {
 		
 	}
 	public void askMovement2(int time) {
-		setAcceleration(Strategy.getInstance(this).accelerationOnTime(time));
+		//setAcceleration(Strategy.getInstance(this).accelerationOnTime(time));
+		setAcceleration(new Strategy(this).accelerationOnTime(time));
 		currentAcceleration=this.getAcceleration();		
 		updateData(1);
 		fuelTank.updateFuel(currentSpeed);	
