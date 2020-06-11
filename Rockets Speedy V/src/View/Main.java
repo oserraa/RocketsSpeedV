@@ -9,7 +9,7 @@ public class Main {
 		Controller controller= new Controller();
 		
 		System.out.println(controller.play());
-		System.out.println(controller.CompetitionInProgress());
+		System.out.println(controller.competitionInProgress());
 
 	}
 

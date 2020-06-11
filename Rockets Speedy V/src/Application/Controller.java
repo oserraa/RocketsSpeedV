@@ -19,8 +19,18 @@ public class Controller {
 		return start;
 	}
 	
-	public String CompetitionInProgress() {
+	/*public String competitionInProgress() {
 		//Thread.sleep(1000);
+		return circuit.rocketsInformation();
+	}*/
+	
+	public String competitionInProgress() {
+		String sentence="";
+		while(!circuit.competitionEnds()) {
+			circuit.competitionProgress();
+			sentence=circuit.rocketsInformation();
+		}
+		return sentence;
 	}
 	
 	

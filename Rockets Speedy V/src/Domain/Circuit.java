@@ -19,25 +19,24 @@ public class Circuit {
 		this.currentTime=0;
 	}
 	
-	/*public void rocketActionAll() {
-		for(Rocket rocket: rockets){
-			
+	public String rocketsInformation() {
+		String sentence="";
+		for(Rocket rocket:rockets) {
+			sentence+="\n Name"+rocket.getName()+" Current Time: "+this.currentTime+" Acceleration: "+rocket.getAcceleration()+
+					" Speed: "+rocket.getSpeed()+" Distance: "+rocket.getMetersTravelled()+" Circuit: "+this.meters+
+					" Fuel: "+rocket.getCurrentFuel()+" / "+rocket.getMaxFuel();
 		}
-	}*/
-	public String startCompetition() {
-		String sentence="Starting competition. Circuit length: "+this.meters+" Max Time: "+this.maxTime;
+		return sentence;
+	}
+	public void competitionProgress() {
 		while(!competitionEnds()) {
 			for(Rocket rocket:rockets) {
 				this.currentTime++;
 				rocket.askMovement2(currentTime);
-				sentence+="\n Current Time: "+this.currentTime+" Acceleration: "+rocket.getAcceleration()+
-						" Speed: "+rocket.getSpeed()+" Distance: "+rocket.getMetersTravelled()+" Circuit: "+this.meters+
-						" Fuel: "+rocket.getCurrentFuel()+" / "+rocket.getMaxFuel();
 			}
 			theresAWinner();
 		}
-		sentence+="\n"+endSentence();
-		return sentence;
+		//sentence+="\n"+endSentence();
 	}
 	public boolean competitionEnds() {
 		return (currentTime==maxTime||this.winner!=null);
