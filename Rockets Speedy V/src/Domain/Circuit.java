@@ -35,7 +35,6 @@ public class Circuit {
 			System.out.println("\n");
 			theresAWinner();
 		}
-		//sentence+="\n"+endSentence();
 	}
 	public boolean competitionEnds() {
 		return (currentTime>=maxTime);//||this.winner!=null

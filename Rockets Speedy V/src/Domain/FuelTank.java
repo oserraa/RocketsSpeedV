@@ -14,12 +14,11 @@ public class FuelTank {
 	}
 	
 	public void updateFuel(double speed) {
-		//mes clar
-		if((currentFuel-(int) Math.round(0.02*(speed*speed)))<=0) {
+		if((currentFuel-((int) (0.02*(speed*speed))))<=0) {
 			currentFuel=0;
 		}
 		else {
-		currentFuel=currentFuel-(int) Math.round(0.02*(speed*speed));
+		currentFuel=currentFuel-((int) (0.02*(speed*speed)));
 		}
 	}
 	public void setMaxFuel(int maxcapacity) {

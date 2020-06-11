@@ -12,8 +12,7 @@ public class Controller {
 	public String play() {
 		Random num = new Random();
 		int numCircuit = num.nextInt(4);
-		System.out.println(numCircuit);
-		this.circuit = CircuitFactory.getCircuit(1);
+		this.circuit = CircuitFactory.getCircuit(numCircuit);
 		String start = "Randomly chosen circuit: " + this.circuit.getName() + "\n"
 				+ "Starting competition. Circuit length: " + this.circuit.getMeters() + " Max Time: "
 				+ this.circuit.getTime();

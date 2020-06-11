@@ -24,8 +24,6 @@ public class Strategy {
 		time=rocket.getTime();
 		List<Integer> sol=new ArrayList<Integer>();
 		backBestRoute(sol,1);
-		System.out.println("He fet stratgey");
-		
 	}
 	
 	public int accelerationOnTime(int time) {
@@ -36,13 +34,13 @@ public class Strategy {
 		}	
 	}
 	
-	public void backBestRoute(List<Integer> solution, int k) {//List<Integer> best
-		//int i=maxAcceleration();
-		int i=16;
+	public boolean backBestRoute(List<Integer> solution, int k) {//List<Integer> best
+		int i=maxAcceleration();
+		boolean trobat=false;
 		double speedbefore=0;
 		double metersbefore=0;
 		int fuelbefore=0;
-		while(i>=0) {
+		while(i>=0&&!trobat) {
 			if(acceptable(k,i)) {
 				metersbefore=rocket.getMetersTravelled();
 				speedbefore=rocket.getSpeed();
@@ -52,17 +50,13 @@ public class Strategy {
 				if(esSolucio()) {
 					if(millorSolucio(solution)) {
 						bestWay.clear();
-						System.out.println(rocket.getMetersTravelled());
-						System.out.println(rocket.getSpeed());
-						System.out.println(rocket.getCurrentFuel());
 						for(int newAcceleration:solution) {
-							System.out.println(newAcceleration);
 							bestWay.add(newAcceleration);
 						}
-						System.out.println("millor");
 					}
+					trobat=true;
 				}else if(!esSolucio()) {
-					backBestRoute(solution,k+1);
+					trobat=backBestRoute(solution,k+1);
 				}
 				solution.remove(k-1);
 				rocket.setSpeed(speedbefore);
@@ -71,6 +65,7 @@ public class Strategy {
 			}
 			i--;
 		}
+		return trobat;
 	}
 	/*public void backBestRoute(List<Integer> solution, int k) {//List<Integer> best
 		int i=maxAcceleration();
@@ -105,7 +100,7 @@ public class Strategy {
 	
 	private boolean acceptable(int k,int acceleration) {
 		if(k<=time) {
-			if(calcularGasolina(k,acceleration)>=0) {
+			if(calculateFuel(k,acceleration)>=0) {
 				return true;
 			}
 		}
@@ -121,9 +116,7 @@ public class Strategy {
 		}
 		return maxAcceleration;			
 	}
-	private int calcularGasolina(int k,int acceleration) {
-		if(k==1) {
-		System.out.println(rocket.getSpeed());}
+	private int calculateFuel(int k,int acceleration) {
 		double speed=rocket.getSpeed()+calcularAcceleration(acceleration);
 		int fuel=rocket.getCurrentFuel()-(int) Math.round(0.02*(speed*speed));
 		return fuel;
@@ -142,7 +135,6 @@ public class Strategy {
 	}
 	
 	private boolean esSolucio() {
-		//System.out.println(rocket.getMetersTravelled()+" "+meters);
 		return rocket.getMetersTravelled()>=this.meters;
 	}
 	private boolean millorSolucio(List<Integer> sol) {
