@@ -43,7 +43,7 @@ public class Strategy {
 				speedbefore=rocket.getSpeed();
 				fuelbefore=rocket.getCurrentFuel();
 				solution.add(i);
-				rocket.askMovement1(i);
+				rocket.BackUpdateData(i);
 				if(esSolucio()) {
 					if(millorSolucio(solution,best)) {
 						best.clear();
@@ -55,13 +55,17 @@ public class Strategy {
 					backBestRoute(solution,k+1,best);
 				}
 				solution.remove(k-1);
-				rocket.setSpeed(speedbefore);
-				rocket.setMetersTravelled(metersbefore);
-				rocket.setCurrentFuel(fuelbefore);
+				remove(speedbefore, metersbefore, fuelbefore);
 				
 			}
 			i--;
 		}
+	}
+	
+	private void remove(double speedbefore, double metersbefore, int fuelbefore) {
+		rocket.setSpeed(speedbefore);
+		rocket.setMetersTravelled(metersbefore);
+		rocket.setCurrentFuel(fuelbefore);
 	}
 	
 	private boolean acceptable(int k,int acceleration) {

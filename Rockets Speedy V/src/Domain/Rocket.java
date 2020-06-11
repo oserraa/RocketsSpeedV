@@ -23,14 +23,14 @@ public class Rocket {
 		}
 	}
 	
-	public void askMovement1(int acce) {
+	public void BackUpdateData(int acce) {
 		setAcceleration(acce);
 		currentAcceleration=this.getAcceleration();		
 		updateData(1);
 		fuelTank.updateFuel(currentSpeed);	
 		
 	}
-	public void askMovement2(int time) {
+	public void askMovement(int time) {
 		setAcceleration(Strategy.getInstance(this).accelerationOnTime(time));
 		currentAcceleration=this.getAcceleration();		
 		updateData(1);
