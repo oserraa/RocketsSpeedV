@@ -61,6 +61,12 @@ public class Circuit {
 	public String getName() {
 		return name;
 	}
+	public int getMeters() {
+		return meters;
+	}
+	public int getTime() {
+		return maxTime;
+	}
 	
 
 }

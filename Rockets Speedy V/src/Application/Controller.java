@@ -10,19 +10,20 @@ public class Controller {
 	Circuit circuit;
 	
 	public String play() {
-		Random num= new Random();
-		int numCircuit= num.nextInt(4)+1;
-		this.circuit=CircuitFactory.getCircuit(numCircuit);
-		System.out.println("Randomly chosen circuit: "+this.circuit.getName());
-		System.out.println("Starting competition. Circuit length: "+this.meters+" Max Time: "+this.maxTime);
+		Random num = new Random();
+		int numCircuit = num.nextInt(4) + 1;
+		this.circuit = CircuitFactory.getCircuit(numCircuit);
+		String start = "Randomly chosen circuit: " + this.circuit.getName() + "\n"
+				+ "Starting competition. Circuit length: " + this.circuit.getMeters() + " Max Time: "
+				+ this.circuit.getTime();
+		return start;
 	}
 	
-	public void addCircuit(String name,int meters, int maxTime,List<Rocket>rockets) {
-		circuit.addRocket(rocket);
+	public String CompetitionInProgress() {
+		//Thread.sleep(1000);
 	}
 	
-	public void addRocket(Rocket rocket) {
-		circuit.addRocket(rocket);
-	}
+	
+	
 
 }
