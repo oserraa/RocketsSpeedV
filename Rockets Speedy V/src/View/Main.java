@@ -10,20 +10,19 @@ public class Main {
 	
 	public static void main (String [] args) throws Exception{
 		Controller controller= new Controller();
+		System.out.println("Starting the race. Make your bets while rockets are being prepared...");
 		System.out.println(controller.play());
 		System.out.println(controller.competitionInProgress());
 		controller.registerRecord();
-		
-		RecordDTO record=getRecord(controller.getCircuitName());
-		if(record!=null) {
-			if(controller.getTimeWinner()<record.getTime()) {
-				updateRecord(controller.getNameWinner(),controller.getTimeWinner(),controller.getCircuitName());
-			}
-		}
-		else {
+		RecordDTO record;
+		try {
+			record=getRecord(controller.getCircuitName());
+		}catch(Exception e) {
 			record=createRecord(controller.getNameWinner(),controller.getTimeWinner(),controller.getCircuitName());
 		}
-		
+		if(controller.getTimeWinner()<record.getTime()) {
+			updateRecord(controller.getNameWinner(),controller.getTimeWinner(),controller.getCircuitName());
+		}
 	}
 	
 	private static void updateRecord(String RocketName,int RocketTime,String CircuitName) throws Exception {

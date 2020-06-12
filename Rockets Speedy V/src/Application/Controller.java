@@ -13,9 +13,12 @@ public class Controller {
 	public String play() {
 		Random num = new Random();
 		int numCircuit = num.nextInt(4);
-		System.out.println("Preparing rockets for circuit... ");
 		this.circuit = CircuitFactory.getCircuit(numCircuit);
-		String start = "Randomly chosen circuit: " + this.circuit.getName() + "\n"
+		String start="";
+		for(Rocket rocket: circuit.getRockets()) {
+			start+=rocket.getName()+" already prepared. \n";
+		}
+		start += "Randomly chosen circuit: " + this.circuit.getName() + "\n"
 				+ "Starting competition. Circuit length: " + this.circuit.getMeters() + " Max Time: "
 				+ this.circuit.getTime();
 		return start;
@@ -26,7 +29,6 @@ public class Controller {
 		while (!circuit.competitionEnds()) {
 			solution+=circuit.competitionProgress();
 			solution+="\n";
-			//Thread.sleep(1000);
 		}
 		solution+=circuit.endSentence();
 		return solution;
