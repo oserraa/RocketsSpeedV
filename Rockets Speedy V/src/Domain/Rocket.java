@@ -41,7 +41,7 @@ public class Rocket {
 		//mirar fueltank a 0, velocidad
 		setAcceleration(strategy.accelerationOnTime(time));
 		currentAcceleration=this.getAcceleration();		
-		updateData(1);
+		updateData2(1);
 		fuelTank.updateFuel(currentSpeed);
 			
 		
@@ -60,13 +60,39 @@ public class Rocket {
 	}
 	public void updateData(int time) {
 		//mirar fuel abans daixo
-		this.metersTravelled+=(0+currentSpeed*time+0.5*currentAcceleration*(time^2));
+		this.metersTravelled+=(0+currentSpeed*time+0.5*currentAcceleration);
 		if(this.fuelTank.getCurrentFuel()==0) {
 			this.currentSpeed=0;
 		}
 		else {
 			this.currentSpeed=currentSpeed+currentAcceleration*time;
 		}
+	}
+	
+	public void updateData2(int time) {
+		// mirar fuel abans daixo
+		if (!checkSpeed()) {
+			
+			this.metersTravelled += (0 + currentSpeed * time + 0.5 * currentAcceleration);
+			if (this.fuelTank.getCurrentFuel() == 0) {
+				this.currentSpeed = 0;
+			} else {
+				this.currentSpeed = currentSpeed + currentAcceleration * time;
+			}
+		}
+		else {
+			this.currentSpeed=Math.round(Math.sqrt(this.fuelTank.getCurrentFuel()/0.02));
+			this.metersTravelled += (0 + currentSpeed * time + 0.5 * currentAcceleration);
+		}
+
+	}
+	public boolean checkSpeed() {
+		//mirar si la aceleracion es 0, mirar la velicidad que lleva y el fuel q tiene
+		if(this.currentAcceleration==0) {
+			int neededFuel=(int) (0.02 * (this.currentSpeed * this.currentSpeed));
+			return fuelTank.getCurrentFuel() < neededFuel;
+		}
+		return false;
 	}
 	
 	public String getName() {return name;}
