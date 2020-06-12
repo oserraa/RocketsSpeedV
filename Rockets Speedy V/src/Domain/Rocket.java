@@ -40,7 +40,7 @@ public class Rocket {
 	public void askMovement(int time) {
 		//mirar fueltank a 0, velocidad
 		setAcceleration(strategy.accelerationOnTime(time));
-		currentAcceleration=this.getAcceleration();		
+		currentAcceleration=this.getAcceleration();
 		updateData(1);
 		fuelTank.updateFuel(currentSpeed);
 			
@@ -60,7 +60,7 @@ public class Rocket {
 	}
 	public void updateData(int time) {
 		//mirar fuel abans daixo
-		this.metersTravelled+=(0+currentSpeed*time+0.5*currentAcceleration*(time^2));
+		this.metersTravelled+=(0+currentSpeed*time+0.5*currentAcceleration*1);
 		if(this.fuelTank.getCurrentFuel()==0) {
 			this.currentSpeed=0;
 		}

@@ -8,6 +8,7 @@ public class Circuit {
 	private int currentTime;
 	private List<Rocket> rockets= new ArrayList<Rocket>();
 	private Rocket winner;
+	private int timeWinner;
 
 	public Circuit(String name,int meters, int maxTime,List<Rocket>rockets) {
 		//validar dades
@@ -26,32 +27,33 @@ public class Circuit {
 		return sentence;
 	}
 
-	public void competitionProgress() {
-		while (!competitionEnds()) {
-			this.currentTime++;
-			for (Rocket rocket : rockets) {
-				rocket.askMovement(currentTime);
-				System.out.println(rocketsInformation(rocket));
-			}
-			System.out.println("\n");
+	public String competitionProgress() throws InterruptedException {
+		String solution="";
+		this.currentTime++;
+		for (Rocket rocket : rockets) {
+			rocket.askMovement(currentTime);
+			solution+=rocketsInformation(rocket);
+			solution+="\n";
+		}
+		if(this.winner==null) {
 			theresAWinner();
 		}
+		return solution;
 	}
 	public boolean competitionEnds() {
-		return (currentTime>=maxTime);//||this.winner!=null
+		return (currentTime>=maxTime);
 	}
 	public String endSentence() {
-		if(this.winner!=null)return "And the winner is: "+theresAWinner()+" with a time of "+this.currentTime;
+		if(this.winner!=null)return "And the winner is: "+this.winner.getName()+" with a time of "+this.timeWinner;
 		return "There is no winner";
 	}
-	public String theresAWinner() {
-		for(Rocket rocket:rockets) {
-			if(rocket.getMetersTravelled()>=this.meters) {
-				this.winner=rocket;
-				return rocket.getName();
-				}
-		}
-		return "";
+	public void theresAWinner() {
+			for(Rocket rocket:rockets) {
+				if(rocket.getMetersTravelled()>=this.meters) {
+					this.winner=rocket;
+					this.timeWinner=this.currentTime;
+					}
+			}
 	}
 	public void addRocket(Rocket rocket) {
 		rockets.add(rocket);
@@ -67,6 +69,12 @@ public class Circuit {
 	}
 	public List<Rocket> getRockets() {
 		return rockets;
+	}
+	public Rocket getWinner() {
+		return winner;
+	}
+	public int getTimeWinner() {
+		return timeWinner;
 	}
 	
 

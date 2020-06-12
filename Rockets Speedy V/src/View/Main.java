@@ -6,37 +6,43 @@ import Application.RecordDTO;
 
 public class Main {
 
-	private static RecordController controller=new RecordController();
+	private static RecordController recordController=new RecordController();
 	
 	public static void main (String [] args) throws Exception{
 		Controller controller= new Controller();
-		
 		System.out.println(controller.play());
-		controller.competitionInProgress();
+		System.out.println(controller.competitionInProgress());
+		controller.registerRecord();
 		
+		RecordDTO record=getRecord(controller.getCircuitName());
+		if(record!=null) {
+			if(controller.getTimeWinner()<record.getTime()) {
+				updateRecord(controller.getNameWinner(),controller.getTimeWinner(),controller.getCircuitName());
+			}
+		}
+		else {
+			record=createRecord(controller.getNameWinner(),controller.getTimeWinner(),controller.getCircuitName());
+		}
 		
-		RecordDTO record=createRecord();
-	   updateRecord(record.getCircuit());
-		getRecord(record.getCircuit());
 	}
 	
-	private static void updateRecord(String circuit) throws Exception {
-	    
-		RecordDTO record = new RecordDTO("Guille",15,"Speedy");
-		record= controller.updateRecord(circuit, record);
+	private static void updateRecord(String RocketName,int RocketTime,String CircuitName) throws Exception {
+		RecordDTO record = new RecordDTO(RocketName,RocketTime,CircuitName);
+		record= recordController.updateRecord(CircuitName, record);
 		System.out.print(record);
 	}
 	
-	private static void getRecord(String circuit) throws Exception{
-		RecordDTO record= controller.getRecord(circuit);
+	private static RecordDTO getRecord(String CircuitName) throws Exception{
+		RecordDTO record= recordController.getRecord(CircuitName);
 	    System.out.println(record);
+	    return record;
 	}
 	
-	private static RecordDTO createRecord()throws Exception {
-		RecordDTO record = new RecordDTO("William",16,"Monza");
-		record=controller.createRecord(record);
+	private static RecordDTO createRecord(String RocketName,int RocketTime,String CircuitName)throws Exception {
+		RecordDTO record = new RecordDTO(RocketName,RocketTime,CircuitName);
+		record=recordController.createRecord(record);
 		System.out.print(record);
-	return record;
+		return record;
 	}
 	
 
