@@ -11,8 +11,8 @@ public class Strategy {
 	
 	public Strategy(Rocket rocket) {
 		this.rocket = rocket;
-		meters = rocket.getMeters();
-		time = rocket.getTime();
+		meters = rocket.getCircuitMeters();
+		time = rocket.getCircuitTime();
 		List<Integer> sol = new ArrayList<Integer>();
 		backBestRoute(sol, 1);
 	}
@@ -25,7 +25,7 @@ public class Strategy {
 		}	
 	}
 	
-	public boolean backBestRoute(List<Integer> solution, int k) {//List<Integer> best
+	public boolean backBestRoute(List<Integer> solution, int k) {
 		int i=maxAcceleration();
 		boolean trobat=false;
 		double speedbefore=0;
@@ -58,36 +58,6 @@ public class Strategy {
 		}
 		return trobat;
 	}
-	/*public void backBestRoute(List<Integer> solution, int k) {//List<Integer> best
-		int i=maxAcceleration();
-		double speedbefore=0;
-		double metersbefore=0;
-		int fuelbefore=0;
-		while(i>=0) {
-			if(acceptable(k,i)) {
-				metersbefore=rocket.getMetersTravelled();
-				speedbefore=rocket.getSpeed();
-				fuelbefore=rocket.getCurrentFuel();
-				solution.add(i);
-				rocket.askMovement1(i);
-				if(esSolucio()) {
-					if(millorSolucio(solution,bestWay)) {
-						bestWay.clear();
-						for(int newAcceleration:solution) {
-							bestWay.add(newAcceleration);
-						}
-					}
-				}else if(!esSolucio()) {
-					backBestRoute(solution,k+1);
-				}
-				solution.remove(k-1);
-				rocket.setSpeed(speedbefore);
-				rocket.setMetersTravelled(metersbefore);
-				rocket.setCurrentFuel(fuelbefore);
-			}
-			i--;
-		}
-	}*/
 	
 	private boolean acceptable(int k,int acceleration) {
 		if(k<=time) {
@@ -128,8 +98,8 @@ public class Strategy {
 	private boolean isSolution() {
 		return rocket.getMetersTravelled()>=this.meters;
 	}
-	private boolean bestSolution(List<Integer> sol) {
-		return (bestWay.size()==0||sol.size()<bestWay.size());
+	private boolean bestSolution(List<Integer> solution) {
+		return (bestWay.size()==0||solution.size()<bestWay.size());
 	}
 	
 
