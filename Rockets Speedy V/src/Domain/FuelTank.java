@@ -15,7 +15,8 @@ public class FuelTank {
 	}
 
 	public void updateFuel(double speed) {
-		if ((currentFuel - ((int) (0.02 * (speed * speed)))) <= 0) {
+		
+		if ((currentFuel -  (0.02 * (speed * speed))) <= 0 || currentFuel -  (0.02 * (speed * speed)) <= 0.99) {
 			currentFuel = 0;
 		} else {
 			currentFuel = currentFuel - ((int) (0.02 * (speed * speed)));
